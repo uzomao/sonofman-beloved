@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Beloved</title>
+	<script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
+</head>
+<body>
+	<h1>Beloved</h1>
+
+	<div id="vrview">
+	</div>
+
+	<script>
+		var vrView = new VRView.Player('#vrview', {
+		  image: 'images/beloved.JPG',
+		  width: '800',
+		  height: '300'
+		});
+
+		vrView.on('ready', function(){
+			vrView.addHotspot('test-hotspot', {
+				pitch: 0,
+				yaw: 90,
+				radius: 0.05,
+				distance: 2
+			});
+		})
+
+		vrView.on('click', function(event){
+			if(event.id == 'test-hotspot'){
+				alert('hotspot clicked!');
+			}
+		})
+	</script>
+</body>
+</html>
