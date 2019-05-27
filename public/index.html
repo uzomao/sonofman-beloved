@@ -4,24 +4,39 @@
 	<meta charset="UTF-8">
 	<title>Beloved</title>
 	<script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-	<h1>Beloved</h1>
+
+	<div id="intro-dialog">
+		<p>Click and drag mouse to look around the room. Click on or tap the little grey circles to interact with the furniture.</p>
+		<button onclick="hideDialog('intro-dialog')" class="dialog-btn">Got it</button>
+	</div>
+
+	<div id="dialog1">
+		<h3 style="text-align: center">Chief Chukwulozie in his hey-day</h3>
+		<img class="dialog-img" src='images/youngman.jpg' alt="young man portrait with leaves" />
+		<img class="dialog-img" src='images/youngman.jpg' alt="young man portrait with leaves" />
+		<img class="dialog-img" src='images/youngman.jpg' alt="young man portrait with leaves" />
+		<img class="dialog-img" src='images/youngman.jpg' alt="young man portrait with leaves" />
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi nam fuga perferendis doloribus deserunt commodi vel, obcaecati quibusdam ipsam aspernatur sunt, earum laborum iusto dolorem vitae optio. Cum, voluptate, eum.</p>
+		<!-- <button onclick="hideDialog('dialog1')" class="dialog-btn">Back to Room</button> -->
+	</div>
 
 	<div id="vrview">
 	</div>
 
 	<script>
 		var vrView = new VRView.Player('#vrview', {
-		  image: 'images/beloved.JPG',
-		  width: '800',
-		  height: '300'
+		  image: 'images/photoalbum.JPG',
+		  width: '100%',
+		  height: '768'
 		});
 
 		vrView.on('ready', function(){
 			vrView.addHotspot('test-hotspot', {
-				pitch: 0,
-				yaw: 90,
+				pitch: 10,
+				yaw: 180,
 				radius: 0.05,
 				distance: 2
 			});
@@ -29,9 +44,13 @@
 
 		vrView.on('click', function(event){
 			if(event.id == 'test-hotspot'){
-				alert('hotspot clicked!');
+				document.getElementById('dialog1').style.display = 'block';
 			}
 		})
+
+		function hideDialog(dialog){
+			document.getElementById(dialog).style.display = 'none';
+		}
 	</script>
 </body>
 </html>

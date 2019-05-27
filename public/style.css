@@ -1,0 +1,56 @@
+#intro-dialog {
+	width: 40%;
+	height: 200px;
+	padding: 1%;
+	color: white;
+	background: #1c1c1c;
+	text-align: center;
+	font-family: 'courier', serif;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+#intro-dialog p {
+	position: relative;
+	top: 30%;
+	margin-bottom: 5em;
+}
+
+.dialog-btn {
+    background: none;
+    color: white;
+    font-family: 'courier';
+    padding: 5px;
+    font-size: 1rem;
+   	cursor: pointer;
+}
+
+#dialog1 {
+	position: absolute;
+	width: 60%;
+	overflow: auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	font-family: 'courier', serif;
+	background: #1c1c1c;
+	color: white;
+	display: none;
+}
+
+#dialog1 img {
+	width: 40%;
+	margin: 5%;
+	float: left;
+}
+
+#dialog1 p {
+	padding: 5%;
+	text-align: center;
+}
