@@ -1,7 +1,11 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
-const port = 4000
+const port = process.env.PORT;
+
+if(port == null || port == ""){
+	port = 4000;
+}
 
 const corsOptions = {
 	origin: 'https://storage.googleapis.com',

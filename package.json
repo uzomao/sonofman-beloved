@@ -4,7 +4,8 @@
   "description": "beloved for son of man",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "keywords": [
     "beloved",
@@ -18,5 +19,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.0"
+  },
+  "engines": {
+    "node": "8.12.0"
   }
 }
