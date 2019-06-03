@@ -5,27 +5,48 @@
 	<title>Beloved</title>
 	<script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="css/bookblock.css" />
+	 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Sacramento|Inconsolata" rel="stylesheet">
+	<script src="js/modernizr.custom.js"></script>
 </head>
 <body>
 
-	<div id="intro-dialog">
+	<div id="intro-dialog" class="center-this">
 		<p>Click and drag mouse to look around the room. Click on or tap the little grey circles to interact with the furniture.</p>
 		<button onclick="hideDialog('intro-dialog')" class="dialog-btn">Got it</button>
-	</div>
-
-	<div id="dialog1">
-		<h3 style="text-align: center">Chief Chukwulozie in his hey-day</h3>
-		<img class="dialog-img" src='images/youngman.jpg' alt="young man portrait with leaves" />
-		<img class="dialog-img" src='images/youngman.jpg' alt="young man portrait with leaves" />
-		<img class="dialog-img" src='images/youngman.jpg' alt="young man portrait with leaves" />
-		<img class="dialog-img" src='images/youngman.jpg' alt="young man portrait with leaves" />
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi nam fuga perferendis doloribus deserunt commodi vel, obcaecati quibusdam ipsam aspernatur sunt, earum laborum iusto dolorem vitae optio. Cum, voluptate, eum.</p>
-		<!-- <button onclick="hideDialog('dialog1')" class="dialog-btn">Back to Room</button> -->
 	</div>
 
 	<div id="vrview">
 	</div>
 
+		<div class="center-this" id="book-wrapper">
+			<div id="bb-bookblock" class="bb-bookblock">
+				<div class="bb-item">
+					<img src="images/youngman.jpg" class="dialog-img" alt="image 01"/>
+				</div>
+				<div class="bb-item">
+					<img src="images/youngman.jpg" class="dialog-img" alt="image 02"/>
+				</div>
+				<div class="bb-item">
+					<img src="images/youngman.jpg" class="dialog-img" alt="image 03"/>
+				</div>
+				<div class="bb-item">
+					<img src="images/youngman.jpg" class="dialog-img" alt="image 04"/>
+				</div>
+			</div>
+			<nav class="book-nav">
+				<a id="bb-nav-first" href="#"><i class="fas fa-backward"></i></a>
+				<a id="bb-nav-prev" href="#"><i class="fas fa-caret-left"></i></a>
+				<a id="bb-nav-next" href="#"><i class="fas fa-caret-right"></i></a>
+				<a id="bb-nav-last" href="#"><i class="fas fa-forward"></i></a>
+				<i class="fas fa-times close-book"></i>
+			</nav>
+		</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<!-- <script src="js/jquerypp.custom.js"></script> -->
+	<script src="js/jquery.bookblock.js"></script>
 	<script>
 		var vrView = new VRView.Player('#vrview', {
 		  image: 'images/photoalbum.JPG',
@@ -44,13 +65,20 @@
 
 		vrView.on('click', function(event){
 			if(event.id == 'test-hotspot'){
-				document.getElementById('dialog1').style.display = 'block';
+				document.getElementById('book-wrapper').style.display = 'block';
 			}
 		})
 
 		function hideDialog(dialog){
 			document.getElementById(dialog).style.display = 'none';
 		}
+
+		$( '#bb-bookblock' ).bookblock();
+
+		$(' .close-book ').click(function(){
+			document.getElementById('book-wrapper').style.display = 'none';
+		})
 	</script>
+	<script src="js/bookblock.js"></script>
 </body>
 </html>
