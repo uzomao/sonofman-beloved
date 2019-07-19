@@ -105,31 +105,14 @@
 			})
 		})
 
-		const youngChief = [
-			'images/youngman.jpg',
-			'images/youngman.jpg',
-			'images/youngman.jpg',
-			'images/youngman.jpg'
-		];
-
-		const jobPassages = [
-			'images/job/job.png',
-			'images/job/job-1.png',
-			'images/job/job-2.png',
-			'images/job/job-3.png',
-			'images/job/job-4.png'
-		]
-
 		vrView.on('click', function(event){
 			if(event.id === 'family-album'){
-				// insertBookContent(youngChief, "young Chief Chukwulozie");
 				document.getElementById('book-wrapper').style.display = 'block';
 			} else if(event.id === 'dad-image'){
 				new Audio('../sound/achebe.mp3').play();
 			} else if(event.id === 'mom-image'){
 				new Audio('../sound/kitt.mp3').play();
 			} else if(event.id === 'altar'){
-				// insertBookContent(jobPassages, "passage from the beginning of the book of Job");
 				document.getElementById('job-wrapper').style.display = 'block';
 				$("#book-of-job").turn({
 					width: 900,
@@ -147,33 +130,6 @@
 
 		function hideDialog(dialog){
 			document.getElementById(dialog).style.display = 'none';
-		}
-
-		function insertBookContent(imageURIs, altTag){
-
-			let bookblock = document.getElementById('bb-bookblock');
-
-			if(bookblock.childElementCount > 0){
-				while(bookblock.firstChild){
-					bookblock.removeChild(bookblock.firstChild);
-				}
-			}
-
-			for(let i=0; i<imageURIs.length; i++){
-				let divElement = document.createElement('div');
-				divElement.className = 'bb-item';
-				divElement.style.display = 'block';
-
-				let imageElement = document.createElement('img');
-				imageElement.src = imageURIs[i];
-				imageElement.className = 'dialog-img';
-				imageElement.alt = altTag;
-
-				divElement.appendChild(imageElement);
-				bookblock.appendChild(divElement);
-			}
-
-			document.getElementById('book-wrapper').style.display = 'block';
 		}
 
 		$( '#bb-bookblock' ).bookblock();
