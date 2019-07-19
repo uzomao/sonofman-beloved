@@ -70,13 +70,15 @@
 	<script src="js/turn.min.js"></script>
 	<script>
 		var vrView = new VRView.Player('#vrview', {
-		  image: 'images/photoalbum.JPG',
+		  image: 'images/rooms/living-room.JPG',
 		  width: '100%',
 		  height: '768'
 		});
 
 		const radius =  0.05;
 		const distance = 2;
+
+		let clickCount = 0;
 
 		vrView.on('ready', function(){
 			vrView.addHotspot('family-album', {
@@ -102,16 +104,20 @@
 				yaw: 118,
 				radius: radius,
 				distance: distance
-			})
+			});
 		})
 
 		vrView.on('click', function(event){
+
 			if(event.id === 'family-album'){
 				document.getElementById('book-wrapper').style.display = 'block';
+				clickCount++;
 			} else if(event.id === 'dad-image'){
 				new Audio('../sound/achebe.mp3').play();
+				clickCount++;
 			} else if(event.id === 'mom-image'){
 				new Audio('../sound/kitt.mp3').play();
+				clickCount++;
 			} else if(event.id === 'altar'){
 				document.getElementById('job-wrapper').style.display = 'block';
 				$("#book-of-job").turn({
@@ -125,6 +131,20 @@
 						$('#job-wrapper').css('display', 'none');
 					}, 5000);
 				});
+				clickCount++;
+			} else if(event.id === 'staircase'){
+				if(confirm('Do you want to go upstairs?')){
+					window.location.href = '/staircase.html';
+				};
+			}
+
+			if(clickCount === 4){
+				vrView.addHotspot('staircase',{
+					pitch: -42,
+					yaw: 105,
+					radius: radius,
+					distance: distance
+				})
 			}
 		})
 
