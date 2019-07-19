@@ -20,33 +20,54 @@
 	<div id="vrview">
 	</div>
 
-		<div class="center-this" id="book-wrapper">
-			<div id="bb-bookblock" class="bb-bookblock">
-				<div class="bb-item">
-					<img src="images/youngman.jpg" class="dialog-img" alt="image 01"/>
-				</div>
-				<div class="bb-item">
-					<img src="images/youngman.jpg" class="dialog-img" alt="image 02"/>
-				</div>
-				<div class="bb-item">
-					<img src="images/youngman.jpg" class="dialog-img" alt="image 03"/>
-				</div>
-				<div class="bb-item">
-					<img src="images/youngman.jpg" class="dialog-img" alt="image 04"/>
-				</div>
+	<div class="center-this" id="book-wrapper">
+		<div id="bb-bookblock" class="bb-bookblock">
+			<div class="bb-item">
+				<img src="images/youngman.jpg" class="dialog-img" alt="dialog" />
 			</div>
-			<nav class="book-nav">
-				<a id="bb-nav-first" href="#"><i class="fas fa-backward"></i></a>
-				<a id="bb-nav-prev" href="#"><i class="fas fa-caret-left"></i></a>
-				<a id="bb-nav-next" href="#"><i class="fas fa-caret-right"></i></a>
-				<a id="bb-nav-last" href="#"><i class="fas fa-forward"></i></a>
-				<i class="fas fa-times close-book"></i>
-			</nav>
+			<div class="bb-item">
+				<img src="images/youngman.jpg" class="dialog-img" alt="dialog" />
+			</div>
+			<div class="bb-item">
+				<img src="images/youngman.jpg" class="dialog-img" alt="dialog" />
+			</div>
 		</div>
+		<nav class="book-nav">
+			<a id="bb-nav-first" href="#"><i class="fas fa-backward"></i></a>
+			<a id="bb-nav-prev" href="#"><i class="fas fa-caret-left"></i></a>
+			<a id="bb-nav-next" href="#"><i class="fas fa-caret-right"></i></a>
+			<a id="bb-nav-last" href="#"><i class="fas fa-forward"></i></a>
+			<i class="fas fa-times close-book"></i>
+		</nav>
+	</div>
+
+	<div class="center-this" id="job-wrapper">
+		<div id="book-of-job">
+			<div class="hard">
+				<h1>The Book of Job</h1>
+			</div>
+			<div>
+				<img src="images/job/job.png" class="dialog-img" alt="dialog" />
+			</div>
+			<div>
+				<img src="images/job/job-1.png" class="dialog-img" alt="dialog" />
+			</div>
+			<div>
+				<img src="images/job/job-2.png" class="dialog-img" alt="dialog" />
+			</div>
+			<div>
+				<img src="images/job/job-3.png" class="dialog-img" alt="dialog" />
+			</div>
+			<div>
+				<img src="images/job/job-4.png" class="dialog-img" alt="dialog" />
+			</div>
+		</div>
+	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<!-- <script src="js/jquerypp.custom.js"></script> -->
 	<script src="js/jquery.bookblock.js"></script>
+	<script src="js/turn.min.js"></script>
 	<script>
 		var vrView = new VRView.Player('#vrview', {
 		  image: 'images/photoalbum.JPG',
@@ -54,23 +75,105 @@
 		  height: '768'
 		});
 
+		const radius =  0.05;
+		const distance = 2;
+
 		vrView.on('ready', function(){
-			vrView.addHotspot('test-hotspot', {
+			vrView.addHotspot('family-album', {
 				pitch: 10,
 				yaw: 180,
-				radius: 0.05,
-				distance: 2
+				radius: radius,
+				distance: distance
 			});
+			vrView.addHotspot('dad-image', {
+				pitch: -5,
+				yaw: -17,
+				radius: radius,
+				distance: distance
+			});
+			vrView.addHotspot('mom-image', {
+				pitch: -5,
+				yaw: -49,
+				radius: radius,
+				distance: distance
+			});
+			vrView.addHotspot('altar', {
+				pitch: -25,
+				yaw: 118,
+				radius: radius,
+				distance: distance
+			})
 		})
 
+		const youngChief = [
+			'images/youngman.jpg',
+			'images/youngman.jpg',
+			'images/youngman.jpg',
+			'images/youngman.jpg'
+		];
+
+		const jobPassages = [
+			'images/job/job.png',
+			'images/job/job-1.png',
+			'images/job/job-2.png',
+			'images/job/job-3.png',
+			'images/job/job-4.png'
+		]
+
 		vrView.on('click', function(event){
-			if(event.id == 'test-hotspot'){
+			if(event.id === 'family-album'){
+				// insertBookContent(youngChief, "young Chief Chukwulozie");
 				document.getElementById('book-wrapper').style.display = 'block';
+			} else if(event.id === 'dad-image'){
+				new Audio('../sound/achebe.mp3').play();
+			} else if(event.id === 'mom-image'){
+				new Audio('../sound/kitt.mp3').play();
+			} else if(event.id === 'altar'){
+				// insertBookContent(jobPassages, "passage from the beginning of the book of Job");
+				document.getElementById('job-wrapper').style.display = 'block';
+				$("#book-of-job").turn({
+					width: 900,
+					height: 500,
+					autoCenter: true,
+					page: 1
+				});
+				$("#book-of-job").bind("last", function(event) {
+					setTimeout(function(){
+						$('#job-wrapper').css('display', 'none');
+					}, 5000);
+				});
 			}
 		})
 
 		function hideDialog(dialog){
 			document.getElementById(dialog).style.display = 'none';
+		}
+
+		function insertBookContent(imageURIs, altTag){
+
+			let bookblock = document.getElementById('bb-bookblock');
+
+			if(bookblock.childElementCount > 0){
+				while(bookblock.firstChild){
+					bookblock.removeChild(bookblock.firstChild);
+				}
+			}
+
+			for(let i=0; i<imageURIs.length; i++){
+				let divElement = document.createElement('div');
+				divElement.className = 'bb-item';
+				divElement.style.display = 'block';
+
+				let imageElement = document.createElement('img');
+				imageElement.src = imageURIs[i];
+				imageElement.className = 'dialog-img';
+				imageElement.alt = altTag;
+
+				divElement.appendChild(imageElement);
+				bookblock.appendChild(divElement);
+			}
+
+			document.getElementById('book-wrapper').style.display = 'block';
 		}
 
 		$( '#bb-bookblock' ).bookblock();

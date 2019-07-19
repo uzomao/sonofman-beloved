@@ -23,7 +23,7 @@
    	cursor: pointer;
 }
 
-#book-wrapper {
+#book-wrapper, #job-wrapper {
 	display: none;
 	position: absolute !important;
 }
@@ -32,6 +32,18 @@
 	top: 5%;
 	width: 700px;
 	height: 500px;
+}
+
+#book-of-job .hard {
+	opacity: 1;
+}
+#book-of-job .hard h1{
+	text-align: center;
+	position: relative;
+	top: 50%;
+	transform: translate(0, -50%);
+	font-family: 'Inconsolata', 'Helvetica', sans-serif;
+	color: #783f04;
 }
 
 .book-nav {
