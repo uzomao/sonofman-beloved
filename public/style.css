@@ -86,3 +86,10 @@
 	bottom: 0;
 	margin: auto;
 }
+
+#biafra-map{
+	position: absolute;
+	top: 5%;
+	left: 50%;
+	height: 60vh;
+}

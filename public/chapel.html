@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Beloved</title>
+	<script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Sacramento|Inconsolata" rel="stylesheet">
+	<script src="js/modernizr.custom.js"></script>
+</head>
+
+<body>
+
+	<div id="vrview">
+	</div>
+
+	<script>
+		const radius =  0.05;
+		const distance = 2;
+
+		let clickCount = 0;
+
+		var vrView = new VRView.Player('#vrview', {
+		  image: 'images/rooms/chapel.JPG',
+		  width: '100%',
+		  height: '768'
+		});
+
+		vrView.on('ready', function(){
+			vrView.addHotspot('pews', {
+				pitch: 0,
+				yaw: 0,
+				radius: radius,
+				distance: distance
+			})
+			vrView.addHotspot('podium', {
+				pitch: 0,
+				yaw: 180,
+				radius: radius,
+				distance: distance
+			})
+		});
+
+		vrView.on('click', function(event){
+
+			if(event.id === 'pews'){
+				new Audio('../sound/kitt.mp3').play();
+				clickCount++;
+			} else if(event.id === 'podium'){
+				alert('I left a comment about this in the spreadsheet');
+				clickCount++;
+			} else if(event.id === 'chapelDoor'){
+				alert('This door will lead to the parlour')
+			}
+
+			if(clickCount === 2){
+				vrView.addHotspot('chapelDoor',{
+					pitch: 0,
+					yaw: -67,
+					radius: radius,
+					distance: distance
+				})
+			}
+		})
+	</script>
+
+</body>
+</html>
