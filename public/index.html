@@ -95,46 +95,46 @@
 
 		******/
 
-		vrView.on('click', function(event){
+		// vrView.on('click', function(event){
 
-			if(event.id === 'family-album'){
-				document.getElementById('book-wrapper').style.display = 'block';
-				clickCount++;
-			} else if(event.id === 'dad-image'){
-				new Audio('../sound/achebe.mp3').play();
-				clickCount++;
-			} else if(event.id === 'mom-image'){
-				new Audio('../sound/kitt.mp3').play();
-				clickCount++;
-			} else if(event.id === 'altar'){
-				document.getElementById('job-wrapper').style.display = 'block';
-				$("#book-of-job").turn({
-					width: 900,
-					height: 500,
-					autoCenter: true,
-					page: 1
-				});
-				$("#book-of-job").bind("last", function(event) {
-					setTimeout(function(){
-						$('#job-wrapper').css('display', 'none');
-					}, 5000);
-				});
-				clickCount++;
-			} else if(event.id === 'staircase'){
-				if(confirm('Do you want to go upstairs?')){
-					window.location.href = '/staircase.html';
-				};
-			}
+		// 	if(event.id === 'family-album'){
+		// 		document.getElementById('book-wrapper').style.display = 'block';
+		// 		clickCount++;
+		// 	} else if(event.id === 'dad-image'){
+		// 		new Audio('../sound/achebe.mp3').play();
+		// 		clickCount++;
+		// 	} else if(event.id === 'mom-image'){
+		// 		new Audio('../sound/kitt.mp3').play();
+		// 		clickCount++;
+		// 	} else if(event.id === 'altar'){
+		// 		document.getElementById('job-wrapper').style.display = 'block';
+		// 		$("#book-of-job").turn({
+		// 			width: 900,
+		// 			height: 500,
+		// 			autoCenter: true,
+		// 			page: 1
+		// 		});
+		// 		$("#book-of-job").bind("last", function(event) {
+		// 			setTimeout(function(){
+		// 				$('#job-wrapper').css('display', 'none');
+		// 			}, 5000);
+		// 		});
+		// 		clickCount++;
+		// 	} else if(event.id === 'staircase'){
+		// 		if(confirm('Do you want to go upstairs?')){
+		// 			window.location.href = '/staircase.html';
+		// 		};
+		// 	}
 
-			if(clickCount === 4){
-				vrView.addHotspot('staircase',{
-					pitch: -42,
-					yaw: 105,
-					radius: radius,
-					distance: distance
-				})
-			}
-		})
+		// 	if(clickCount === 4){
+		// 		vrView.addHotspot('staircase',{
+		// 			pitch: -42,
+		// 			yaw: 105,
+		// 			radius: radius,
+		// 			distance: distance
+		// 		})
+		// 	}
+		// })
 
 		function hideDialog(dialog){
 			document.getElementById(dialog).style.display = 'none';
