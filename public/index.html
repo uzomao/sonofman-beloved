@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<link rel="stylesheet" type="text/css" href="css/bookblock.css" />
 	 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Sacramento|Inconsolata" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Sacramento|Inconsolata" rel="stylesheet">
 	<script src="js/modernizr.custom.js"></script>
 </head>
 <body>
@@ -65,9 +65,10 @@
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<!-- <script src="js/jquerypp.custom.js"></script> -->
 	<script src="js/jquery.bookblock.js"></script>
 	<script src="js/turn.min.js"></script>
+	<script src="js/script.js"></script>
+
 	<script>
 
 		/*****
@@ -87,51 +88,12 @@
 
 		+ 360s should be active on bible close
 
-		+ Staircae hotspot (progress to next room) to activate
+		+ Staircase hotspot (progress to next room) to activate
 		after *three* interactions
 
 		+ Create a tasklist for pending media
 
 		******/
-
-
-		var vrView = new VRView.Player('#vrview', {
-		  image: 'images/rooms/living-room.JPG',
-		  width: '100%',
-		  height: '768'
-		});
-
-		const radius =  0.05;
-		const distance = 2;
-
-		let clickCount = 0;
-
-		vrView.on('ready', function(){
-			vrView.addHotspot('family-album', {
-				pitch: 10,
-				yaw: 180,
-				radius: radius,
-				distance: distance
-			});
-			vrView.addHotspot('dad-image', {
-				pitch: -5,
-				yaw: -17,
-				radius: radius,
-				distance: distance
-			});
-			vrView.addHotspot('mom-image', {
-				pitch: -5,
-				yaw: -49,
-				radius: radius,
-				distance: distance
-			});
-			vrView.addHotspot('altar', {
-				pitch: -25,
-				yaw: 118,
-				radius: radius,
-				distance: distance
-			});
-		})
 
 		vrView.on('click', function(event){
 
