@@ -11,90 +11,11 @@
 <body>
 	<div id="vrview">
 	</div>
+
+	<div id="biafra-map">
+		<img src='../images/biafra_map.jpg' alt="map of Biafra" />
+	</div>
 	
-	<script>
-		const radius =  0.05;
-		const distance = 2;
-
-		let clickCount = 0;
-
-		console.log(window)
-
-		var vrView = new VRView.Player('#vrview', {
-		  image: 'images/rooms/room.JPG',
-		  width: '100%',
-		  height: '768'
-		});
-
-		vrView.on('ready', function(){
-			vrView.addHotspot('bed', {
-				pitch: 10,
-				yaw: 0,
-				radius: radius,
-				distance: distance
-			});
-			vrView.addHotspot('bathroom', {
-				pitch: 0,
-				yaw: 170,
-				radius: radius,
-				distance: distance
-			})
-			vrView.addHotspot('shoes', {
-				pitch: 0,
-				yaw: -125,
-				radius: radius,
-				distance: distance
-			})
-			vrView.addHotspot('rosary', {
-				pitch: -65,
-				yaw: -125,
-				radius: radius,
-				distance: distance
-			})
-		});
-
-		vrView.on('click', function(event){
-			if(event.id === 'rosary') {
-				new Audio('../sound/hymn.mp3').play();
-				clickCount++;
-			} else if(event.id === 'shoes') {
-				if(!document.getElementById('biafra-map')){
-					new Audio('../sound/achebe_interview.mp3').play();
-
-					let map = document.createElement('img')
-					map.src = "../images/biafra_map.jpg";
-					map.id = "biafra-map"
-
-					let closeBtn = document.createElement('i');
-					closeBtn.className = "fas fas-times close-book"
-
-					const vrView = document.getElementById('vrview');
-
-					vrView.appendChild(map);
-					vrView.appendChild(closeBtn);
-
-					clickCount++;
-				} else {
-					document.getElementById('biafra-map').remove();
-				}
-			} else if(event.id === 'bed') {
-				new Audio('../sound/kitt.mp3').play();
-				clickCount++;
-			} else if(event.id === 'door') {
-				if(confirm('Head to the chapel?')){
-					window.location.href = '/chapel.html';
-				};
-			}
-
-			if(clickCount === 3){
-				vrView.addHotspot('door',{
-					pitch: -15,
-					yaw: -135,
-					radius: radius,
-					distance: distance
-				})
-			}
-		})
-	</script>
+	<script src="js/script.js"></script>
 </body>
 </html>

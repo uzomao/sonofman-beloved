@@ -1,30 +1,52 @@
 const radius  = 0.05;
 const distance  = 2;
 let clickedEvents = []
+let isNavHotspotAdded = false
 
 const soundType = 'sound'
 const displayType = 'display'
 const navigateType = 'navigate'
+const soundAndDisplayType = 'sound-display'
 
 let activeAudio
 let activeAudioURI
 
 const mapPathnameToPage = {
     '/': 'index',
+    '/staircase.html': 'staircase',
+    '/room.html': 'room',
 }
 
 const clickCountObj = {
     'index': {
         'minClicks': 3,
-        'hotspot': {name: 'staircase', pitch: -42, yaw: 105, 
-                    media: {type: navigateType, navText: 'Do you want to go upstairs?', navLink: '/staircase.html'}
-                }
+        'hotspot': {
+            name: 'staircase',
+            pitch: -42,
+            yaw: 105, 
+            media: {
+                type: navigateType,
+                navText: 'Do you want to go upstairs?',
+                navLink: '/staircase.html'}
+            }
     },
-    'room': 3,
+    'room': {
+        'minClicks': 3,
+        'hotspot': {
+            name: 'roomDoor',
+            pitch: -15,
+            yaw: -135,
+            media: {
+                type: navigateType,
+                navText: 'Head to the chapel?',
+                navLink: '/chapel.html'
+            }
+        }
+    },
     'chapel': 2,
 }
 
-const navHotspots = ['staircase', 'sheila', 'door', 'chapelDoor']
+const navHotspots = ['staircase', 'roomDoor', 'chapelDoor']
 
 const pageName = mapPathnameToPage[window.location.pathname]
 
@@ -41,6 +63,18 @@ const hotspots = {
         {name: 'mom-image', pitch: -5, yaw: -49, media: {type: soundType, fileURI: '../sound/kitt.mp3', playing: false}},
         {name: 'altar', pitch: -25, yaw: 118, media: {type: displayType, divId: 'job-wrapper'}}
     ],
+    'staircase': [
+        {name: 'sheila', pitch: -15, yaw: 140, media: {type: navigateType, navText: 'Go to the next room?', navLink: '/room.html'}}
+    ],
+    room: [
+        {name: 'bed', pitch: 10, yaw: 0, media: {type: soundType, fileURI: '../sound/kitt.mp3', playing: false}},
+        {name: 'rosary', pitch: -65, yaw: -125, media: {type: soundType, fileURI: '../sound/hymn.mp3', playing: false}},
+        {name: 'shoes', pitch: 0, yaw: -125, media: {type: soundAndDisplayType, soundFile: '../sound/achebe_interview.mp3', playing: false, visualDivId: 'biafra-map'}},
+        {name: 'curtain', pitch: 20, yaw: 20},
+        {name: 'couch', pitch: 35, yaw: 70},
+        {name: 'office-chair', pitch: 20, yaw: -52.5},
+        {name: 'tv', pitch: -30, yaw: 150}
+    ]
 }
 
 generateHotspots = (hotspots) => {
@@ -79,20 +113,28 @@ vrView.on('click', function(event){
                 if(event.id === 'altar'){
                     turnJs()
                 }
+            } else if(media.type === navigateType){
+                // this else-if is only being done for the staircase page, where the minClick is 1 and
+                // the only hotspot is a navigation one (in current form)
+
+                navigateToLink(media.navText, media.navLink)
+            } else if(media.type === soundAndDisplayType){
+                media.playing = !media.playing
+                toggleAudioFile(media.soundFile, media.playing)
+
+                toggleDivDisplay(media.visualDivId)
             }
         } else {
             media = clickCountObj[pageName].hotspot.media
 
-            if(confirm(media.navText)){
-                window.location.href = media.navLink
-            }
+            navigateToLink(media.navText, media.navLink)
         }
         
         if(clickedEvents.indexOf(event.id) === -1){
             clickedEvents.push(event.id)
         }
 
-        if(clickedEvents.length === clickCountObj[pageName].minClicks){
+        if(clickedEvents.length === clickCountObj[pageName].minClicks && !isNavHotspotAdded){
             const { name, pitch, yaw } = clickCountObj[pageName].hotspot
             vrView.addHotspot(name, {
                 pitch: pitch,
@@ -100,6 +142,7 @@ vrView.on('click', function(event){
                 radius: radius,
                 distance: distance
             })
+            isNavHotspotAdded = true
         }
     }
 })
@@ -114,6 +157,16 @@ toggleAudioFile = (fileURI, playing) => {
     }
 
     playing ? activeAudio.play() : activeAudio.pause()
+}
+
+toggleDivDisplay = (divId) => {
+    let div = document.getElementById(divId)
+
+    if(div.style.display === '' || div.style.display === 'none'){
+        div.style.display = 'block'
+    } else {
+        div.style.display = 'none'
+    }
 }
 
 hideDiv = (divId) => {
@@ -132,4 +185,10 @@ turnJs = () => {
             $('#job-wrapper').css('display', 'none');
         }, 5000);
     });
+}
+
+navigateToLink = (text, link) => {
+    if(confirm(text)){
+        window.location.href = link
+    }
 }
