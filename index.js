@@ -14,6 +14,15 @@ const corsOptions = {
 app.use(cors(corsOptions))
 app.use(express.static('public'))
 
+if(process.env.NODE_ENV === 'production') {
+	app.use((req, res, next) => {
+		if (req.header('x-forwarded-proto') !== 'https')
+		res.redirect(`https://${req.header('host')}${req.url}`)
+		else
+		next()
+	})
+}
+
 let happyMessages = [
 	"Hello Uzoma, your day will be great today :)",
 	"Hey Uzoma, smash this project!",

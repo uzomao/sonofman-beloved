@@ -192,3 +192,9 @@ navigateToLink = (text, link) => {
         window.location.href = link
     }
 }
+
+$( '#bb-bookblock' ).bookblock();
+
+$(' .close-book ').click(function(){
+    hideDiv('book-wrapper')
+})
