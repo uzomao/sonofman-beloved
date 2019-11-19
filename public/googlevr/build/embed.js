@@ -10534,35 +10534,59 @@ HotspotRenderer.prototype.getSize_ = function() {
   return this.worldRenderer.renderer.getSize();
 };
 
-HotspotRenderer.prototype.createHotspot_ = function(radius, distance) {
-  var innerGeometry = new THREE.CircleGeometry(radius, 32);
+// HotspotRenderer.prototype.createHotspot_ = function(radius, distance) {
+//   var innerGeometry = new THREE.CircleGeometry(radius, 32);
 
-  var innerMaterial = new THREE.MeshBasicMaterial({
-    color: 0xffffff, side: THREE.DoubleSide, transparent: true,
-    opacity: MAX_INNER_OPACITY, depthTest: false
-  });
+//   var innerMaterial = new THREE.MeshBasicMaterial({
+//     color: 0x93c01f, side: THREE.DoubleSide, transparent: true,
+//     opacity: MAX_INNER_OPACITY, depthTest: false
+//   });
 
-  var inner = new THREE.Mesh(innerGeometry, innerMaterial);
-  inner.name = 'inner';
+//   var inner = new THREE.Mesh(innerGeometry, innerMaterial);
+//   inner.name = 'inner';
 
-  var outerMaterial = new THREE.MeshBasicMaterial({
-    color: 0xffffff, side: THREE.DoubleSide, transparent: true,
-    opacity: MAX_OUTER_OPACITY, depthTest: false
-  });
-  var outerGeometry = new THREE.RingGeometry(radius * 0.85, radius, 32);
-  var outer = new THREE.Mesh(outerGeometry, outerMaterial);
-  outer.name = 'outer';
+//   var outerMaterial = new THREE.MeshBasicMaterial({
+//     color: 0xffffff, side: THREE.DoubleSide, transparent: true,
+//     opacity: MAX_OUTER_OPACITY, depthTest: false
+//   });
+//   var outerGeometry = new THREE.RingGeometry(radius * 0.85, radius, 32);
+//   var outer = new THREE.Mesh(outerGeometry, outerMaterial);
+//   outer.name = 'outer';
 
-  // Position at the extreme end of the sphere.
+//   // Position at the extreme end of the sphere.
+//   var hotspot = new THREE.Object3D();
+//   hotspot.position.z = -distance;
+//   hotspot.scale.copy(NORMAL_SCALE);
+
+//   hotspot.add(inner);
+//   hotspot.add(outer);
+
+//   return hotspot;
+// };
+
+HotspotRenderer.prototype.createHotspot_ = function(radius, distance){
+  var texture = new THREE.TextureLoader().load(
+    '../../images/nsibidi-symbol.jpeg'
+  )
+
+  var geometry = new THREE.CircleGeometry(radius, 32)
+  var material = new THREE.MeshBasicMaterial({
+    color: 0x93c01f, side: THREE.DoubleSide, transparent: true,
+    opacity: MAX_INNER_OPACITY, depthTest: false, map: texture
+  })
+
+  var circle = new THREE.Mesh(geometry, material)
+  circle.name = 'circle'
+
   var hotspot = new THREE.Object3D();
   hotspot.position.z = -distance;
   hotspot.scale.copy(NORMAL_SCALE);
 
-  hotspot.add(inner);
-  hotspot.add(outer);
+  hotspot.add(circle)
 
   return hotspot;
-};
+
+}
 
 /**
  * Large aspect ratios tend to cause visually jarring distortions on the sides.
@@ -10628,7 +10652,7 @@ HotspotRenderer.prototype.blur_ = function(id) {
 HotspotRenderer.prototype.down_ = function(id) {
   // Become active.
   var hotspot = this.hotspots[id];
-  var outer = hotspot.getObjectByName('inner');
+  var outer = hotspot.getObjectByName('circle');
 
   this.tween = new TWEEN.Tween(outer.material.color).to(ACTIVE_COLOR, ACTIVE_DURATION)
       .start();
@@ -10637,7 +10661,7 @@ HotspotRenderer.prototype.down_ = function(id) {
 HotspotRenderer.prototype.up_ = function(id) {
   // Become inactive.
   var hotspot = this.hotspots[id];
-  var outer = hotspot.getObjectByName('inner');
+  var outer = hotspot.getObjectByName('circle');
 
   this.tween = new TWEEN.Tween(outer.material.color).to(INACTIVE_COLOR, ACTIVE_DURATION)
       .start();
@@ -10645,10 +10669,10 @@ HotspotRenderer.prototype.up_ = function(id) {
 
 HotspotRenderer.prototype.setOpacity_ = function(id, opacity) {
   var hotspot = this.hotspots[id];
-  var outer = hotspot.getObjectByName('outer');
-  var inner = hotspot.getObjectByName('inner');
+  // var outer = hotspot.getObjectByName('outer');
+  var inner = hotspot.getObjectByName('circle');
 
-  outer.material.opacity = opacity * MAX_OUTER_OPACITY;
+  // outer.material.opacity = opacity * MAX_OUTER_OPACITY;
   inner.material.opacity = opacity * MAX_INNER_OPACITY;
 };
 

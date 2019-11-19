@@ -1,4 +1,4 @@
-const radius  = 0.025;
+const radius  = 0.1;
 const distance  = 2;
 let clickedEvents = []
 let isNavHotspotAdded = false
