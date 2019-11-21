@@ -1,4 +1,4 @@
-const radius  = 0.1;
+const radius  = 0.05;
 const distance  = 2;
 let clickedEvents = []
 let isNavHotspotAdded = false
@@ -22,7 +22,7 @@ const clickCountObj = {
         'minClicks': 3,
         'hotspot': {
             name: 'staircase',
-            pitch: -42,
+            pitch: 10,
             yaw: 105, 
             media: {
                 type: navigateType,
@@ -58,10 +58,10 @@ const vrView = new VRView.Player('#vrview', {
 
 const hotspots = {
     'index': [
-        {name: 'family-album', pitch: 10, yaw: 180, media: {type: displayType, divId: 'book-wrapper'}},
+        {name: 'family-album', pitch: -10, yaw: 180, media: {type: displayType, divId: 'book-wrapper'}},
         {name: 'dad-image', pitch: -5, yaw: -17, media: {type: soundType, fileURI: '../sound/achebe.mp3', playing: false}},
         {name: 'mom-image', pitch: -5, yaw: -49, media: {type: soundType, fileURI: '../sound/kitt.mp3', playing: false}},
-        {name: 'altar', pitch: -25, yaw: 118, media: {type: displayType, divId: 'job-wrapper'}}
+        {name: 'altar', pitch: 15, yaw: 118, media: {type: displayType, divId: 'job-wrapper'}}
     ],
     'staircase': [
         {name: 'sheila', pitch: -15, yaw: 140, media: {type: navigateType, navText: 'Go to the next room?', navLink: '/room.html'}}
