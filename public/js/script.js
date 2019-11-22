@@ -154,6 +154,10 @@ vrView.on('click', function(event){
                             bookDiv.style.display = 'block'
                         }
 
+                        // I think bookblock works by setting 'display: block' to the div of the current page.
+                        // Need to dive into its docs to understand how to do this manually here.
+                        // Need to also understand how to prevent that 'undefined' white page on page turn.
+
                         let pageImg = document.createElement('img')
                         pageImg.src = `images/${page}`
                         pageImg.className = 'dialog-img'
