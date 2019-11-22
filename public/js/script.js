@@ -130,31 +130,40 @@ vrView.on('click', function(event){
                 media.playing = !media.playing
                 toggleAudioFile(media.fileURI, media.playing)
             } else if(media.type === displayType){
-                
-                document.getElementById(media.divId).style.display = 'block'
 
-                // if(event.id === 'altar' || event.id === 'family-album'){
+                let divvv2 = document.getElementById(media.divId)
+                console.log(divvv2)
 
-                //     const bookBlockDiv = document.getElementById('bb-bookblock')
+                if(event.id === 'altar' || event.id === 'family-album'){
 
-                //     //empty out the node first
-                //     while(bookBlockDiv.firstChild){
-                //         bookBlockDiv.removeChild(bookBlockDiv.firstChild)
-                //     }
+                    document.getElementById('book-wrapper').style.display = 'block'
+                    const bookBlockDiv = document.getElementById('bb-bookblock')
 
-                //     for(page of bookPages[event.id]){
-                //         let bookDiv = document.createElement('div')
-                //         bookDiv.className = 'bb-item'
+                    //empty out the node first
+                    while(bookBlockDiv.firstChild){
+                        bookBlockDiv.removeChild(bookBlockDiv.firstChild)
+                    }
 
-                //         let pageImg = document.createElement('img')
-                //         pageImg.src = `images/${page}`
-                //         pageImg.className = 'dialog-image'
-                //         pageImg.alt = 'dialog'
+                    let count = 0;
+                    for(page of bookPages[event.id]){
+                        let bookDiv = document.createElement('div')
+                        bookDiv.className = 'bb-item'
+                        count += 1
 
-                //         bookDiv.appendChild(pageImg)
-                //         bookBlockDiv.appendChild(bookDiv)
-                //     }
-                // }
+                        if(count === 1){
+                            bookDiv.style.display = 'block'
+                        }
+
+                        let pageImg = document.createElement('img')
+                        pageImg.src = `images/${page}`
+                        pageImg.className = 'dialog-img'
+                        pageImg.alt = 'dialog'
+
+                        bookDiv.appendChild(pageImg)
+                        bookBlockDiv.appendChild(bookDiv)
+                    }
+
+                }
             } else if(media.type === navigateType){
                 // this else-if is only being done for the staircase page, where the minClick is 1 and
                 // the only hotspot is a navigation one (in current form)
