@@ -94,3 +94,13 @@
 	height: 60vh;
 	display: none;
 }
+
+#job-book-close {
+	position: absolute;
+	left: 50%;
+}
+
+#job-book-close i {
+	font-size: 5em;
+	color: #783f15;
+}

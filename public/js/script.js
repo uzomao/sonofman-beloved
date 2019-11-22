@@ -15,6 +15,7 @@ const mapPathnameToPage = {
     '/': 'index',
     '/staircase.html': 'staircase',
     '/room.html': 'room',
+    '/chapel.html': 'chapel'
 }
 
 const clickCountObj = {
@@ -34,7 +35,7 @@ const clickCountObj = {
         'minClicks': 3,
         'hotspot': {
             name: 'roomDoor',
-            pitch: -15,
+            pitch: 15,
             yaw: -135,
             media: {
                 type: navigateType,
@@ -43,7 +44,19 @@ const clickCountObj = {
             }
         }
     },
-    'chapel': 2,
+    'chapel': {
+        'minClicks': 2,
+        'hotspot': {
+            name: 'chapelDoor',
+            pitch: 0,
+            yaw: -67,
+            media: {
+                type: navigateType,
+                navText: 'Leave the house?',
+                navLink: '/'
+            }
+        }
+    },
 }
 
 const navHotspots = ['staircase', 'roomDoor', 'chapelDoor']
@@ -61,20 +74,29 @@ const hotspots = {
         {name: 'family-album', pitch: -10, yaw: 180, media: {type: displayType, divId: 'book-wrapper'}},
         {name: 'dad-image', pitch: -5, yaw: -17, media: {type: soundType, fileURI: '../sound/achebe.mp3', playing: false}},
         {name: 'mom-image', pitch: -5, yaw: -49, media: {type: soundType, fileURI: '../sound/kitt.mp3', playing: false}},
-        {name: 'altar', pitch: 15, yaw: 118, media: {type: displayType, divId: 'job-wrapper'}}
+        {name: 'altar', pitch: 15, yaw: 118, media: {type: displayType, divId: 'book-wrapper'}}
     ],
     'staircase': [
-        {name: 'sheila', pitch: -15, yaw: 140, media: {type: navigateType, navText: 'Go to the next room?', navLink: '/room.html'}}
+        {name: 'sheila', pitch: 15, yaw: 140, media: {type: navigateType, navText: 'Go to the next room?', navLink: '/room.html'}}
     ],
-    room: [
+    'room': [
         {name: 'bed', pitch: 10, yaw: 0, media: {type: soundType, fileURI: '../sound/kitt.mp3', playing: false}},
-        {name: 'rosary', pitch: -65, yaw: -125, media: {type: soundType, fileURI: '../sound/hymn.mp3', playing: false}},
+        {name: 'rosary', pitch: 30, yaw: -105, media: {type: soundType, fileURI: '../sound/hymn.mp3', playing: false}},
         {name: 'shoes', pitch: 0, yaw: -125, media: {type: soundAndDisplayType, soundFile: '../sound/achebe_interview.mp3', playing: false, visualDivId: 'biafra-map'}},
         {name: 'curtain', pitch: 20, yaw: 20},
-        {name: 'couch', pitch: 35, yaw: 70},
-        {name: 'office-chair', pitch: 20, yaw: -52.5},
-        {name: 'tv', pitch: -30, yaw: 150}
+        {name: 'couch', pitch: 15, yaw: 70},
+        {name: 'office-chair', pitch: 10, yaw: -52.5},
+        {name: 'tv', pitch: 30, yaw: 150}
+    ],
+    'chapel': [
+        {name: 'pews', pitch: 0, yaw: 0, media: {type: soundType, fileURI: '../sound/kitt.mp3', playing: false}},
+        {name: 'podium', pitch: 0, yaw: 180, media: {type: soundType, fileURI: '../sound/kitt.mp3', playing: false}}
     ]
+}
+
+const bookPages = {
+    'altar': ['job/job.png', 'job/job-1.png', 'job/job-2.png', 'job/job-3.png', 'job/job-4.png'],
+    'family-album': ['youngman.jpg', 'youngman.jpg', 'youngman.jpg']
 }
 
 generateHotspots = (hotspots) => {
@@ -101,18 +123,38 @@ vrView.on('click', function(event){
     // as the event.id (the hotspot name) is in the array of hotspot names
 
     if(event.id){
-        if(navHotspots.indexOf(event.id) === -1){
+        if(!navHotspots.includes(event.id)){
             media = currentPageHotspots[hotspotNames.indexOf(event.id)].media
 
             if(media.type === soundType){
                 media.playing = !media.playing
                 toggleAudioFile(media.fileURI, media.playing)
             } else if(media.type === displayType){
+                
                 document.getElementById(media.divId).style.display = 'block'
 
-                if(event.id === 'altar'){
-                    turnJs()
-                }
+                // if(event.id === 'altar' || event.id === 'family-album'){
+
+                //     const bookBlockDiv = document.getElementById('bb-bookblock')
+
+                //     //empty out the node first
+                //     while(bookBlockDiv.firstChild){
+                //         bookBlockDiv.removeChild(bookBlockDiv.firstChild)
+                //     }
+
+                //     for(page of bookPages[event.id]){
+                //         let bookDiv = document.createElement('div')
+                //         bookDiv.className = 'bb-item'
+
+                //         let pageImg = document.createElement('img')
+                //         pageImg.src = `images/${page}`
+                //         pageImg.className = 'dialog-image'
+                //         pageImg.alt = 'dialog'
+
+                //         bookDiv.appendChild(pageImg)
+                //         bookBlockDiv.appendChild(bookDiv)
+                //     }
+                // }
             } else if(media.type === navigateType){
                 // this else-if is only being done for the staircase page, where the minClick is 1 and
                 // the only hotspot is a navigation one (in current form)
@@ -130,7 +172,7 @@ vrView.on('click', function(event){
             navigateToLink(media.navText, media.navLink)
         }
         
-        if(clickedEvents.indexOf(event.id) === -1){
+        if(!clickedEvents.includes(event.id)){
             clickedEvents.push(event.id)
         }
 
@@ -179,11 +221,6 @@ turnJs = () => {
         height: 500,
         autoCenter: true,
         page: 1
-    });
-    $("#book-of-job").bind("last", function(event) {
-        setTimeout(function(){
-            $('#job-wrapper').css('display', 'none');
-        }, 5000);
     });
 }
 

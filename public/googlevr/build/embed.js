@@ -10571,7 +10571,7 @@ HotspotRenderer.prototype.createHotspot_ = function(radius, distance){
 
   var geometry = new THREE.CircleGeometry(radius, 32)
   var material = new THREE.MeshBasicMaterial({
-    color: 0x93c01f, side: THREE.DoubleSide, transparent: true,
+    color: 0xffffff, side: THREE.DoubleSide, transparent: true,
     opacity: MAX_INNER_OPACITY, depthTest: false, map: texture
   })
 
