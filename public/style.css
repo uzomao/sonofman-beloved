@@ -104,3 +104,7 @@
 	font-size: 5em;
 	color: #783f15;
 }
+
+.display-type {
+	display: none;
+}

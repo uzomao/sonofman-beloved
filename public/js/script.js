@@ -74,7 +74,8 @@ const hotspots = {
         {name: 'family-album', pitch: -10, yaw: 180, media: {type: displayType, divId: 'book-wrapper'}},
         {name: 'dad-image', pitch: -5, yaw: -17, media: {type: soundType, fileURI: '../sound/achebe.mp3', playing: false}},
         {name: 'mom-image', pitch: -5, yaw: -49, media: {type: soundType, fileURI: '../sound/kitt.mp3', playing: false}},
-        {name: 'altar', pitch: 15, yaw: 118, media: {type: displayType, divId: 'book-wrapper'}}
+        {name: 'altar', pitch: 15, yaw: 118, media: {type: displayType, divId: 'book-wrapper'}},
+        {name: 'record-player', pitch: -12.5, yaw: 15, media: {type: displayType, divId: 'record-player'}}
     ],
     'staircase': [
         {name: 'sheila', pitch: 15, yaw: 140, media: {type: navigateType, navText: 'Go to the next room?', navLink: '/room.html'}}
@@ -131,11 +132,8 @@ vrView.on('click', function(event){
                 toggleAudioFile(media.fileURI, media.playing)
             } else if(media.type === displayType){
 
-                let divvv2 = document.getElementById(media.divId)
-                console.log(divvv2)
-
                 if(event.id === 'altar' || event.id === 'family-album'){
-
+  
                     document.getElementById('book-wrapper').style.display = 'block'
                     const bookBlockDiv = document.getElementById('bb-bookblock')
 
@@ -167,6 +165,8 @@ vrView.on('click', function(event){
                         bookBlockDiv.appendChild(bookDiv)
                     }
 
+                } else {
+                    toggleDivDisplay(media.divId)
                 }
             } else if(media.type === navigateType){
                 // this else-if is only being done for the staircase page, where the minClick is 1 and
