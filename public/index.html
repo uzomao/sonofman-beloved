@@ -26,8 +26,8 @@
 		</div>
 		<nav class="book-nav">
 			<a id="bb-nav-first" href="#"><i class="fas fa-backward"></i></a>
-			<a id="bb-nav-prev" href="#"><i class="fas fa-caret-left"></i></a>
-			<a id="bb-nav-next" href="#"><i class="fas fa-caret-right"></i></a>
+			<a id="bb-nav-prev" href="#" onclick="prevPage()"><i class="fas fa-caret-left"></i></a>
+			<a id="bb-nav-next" href="#" onclick="nextPage()"><i class="fas fa-caret-right"></i></a>
 			<a id="bb-nav-last" href="#"><i class="fas fa-forward"></i></a>
 			<i class="fas fa-times close-book" id="close-book"></i>
 		</nav>
@@ -46,9 +46,28 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="js/jquery.bookblock.js"></script>
-	<script src="js/turn.min.js"></script>
 	<script src="js/script.js"></script>
 
 	<script src="js/bookblock.js"></script>
+
+	<script>
+		let pageCount = 0
+		const pagesOfBook = document.getElementsByClassName('bb-item')
+
+		const nextPage = () => {
+			pageCount += 1
+			if(pageCount < pagesOfBook.length){
+				pagesOfBook[pageCount].style.display = 'block'
+			}
+		}
+
+		const prevPage = () => {
+			if(pageCount > 0){
+				pagesOfBook[pageCount].style.display = 'none'
+			}
+			
+			pageCount -= 1
+		}
+	</script>
 </body>
 </html>

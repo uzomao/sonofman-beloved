@@ -75,7 +75,8 @@ const hotspots = {
         {name: 'dad-image', pitch: -5, yaw: -17, media: {type: soundType, fileURI: '../sound/achebe.mp3', playing: false}},
         {name: 'mom-image', pitch: -5, yaw: -49, media: {type: soundType, fileURI: '../sound/kitt.mp3', playing: false}},
         {name: 'altar', pitch: 15, yaw: 118, media: {type: displayType, divId: 'book-wrapper'}},
-        {name: 'record-player', pitch: -12.5, yaw: 15, media: {type: displayType, divId: 'record-player'}}
+        {name: 'record-player', pitch: -12.5, yaw: 15, media: {type: displayType, divId: 'record-player'}},
+        {name: 'television', pitch: 22.5, yaw: 12.5}
     ],
     'staircase': [
         {name: 'sheila', pitch: 15, yaw: 140, media: {type: navigateType, navText: 'Go to the next room?', navLink: '/room.html'}}
@@ -146,11 +147,12 @@ vrView.on('click', function(event){
                     for(page of bookPages[event.id]){
                         let bookDiv = document.createElement('div')
                         bookDiv.className = 'bb-item'
-                        count += 1
 
-                        if(count === 1){
+                        if(count === 0){
                             bookDiv.style.display = 'block'
                         }
+                        
+                        count += 1
 
                         // I think bookblock works by setting 'display: block' to the div of the current page.
                         // Need to dive into its docs to understand how to do this manually here.
