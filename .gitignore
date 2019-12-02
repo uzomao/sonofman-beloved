@@ -3,3 +3,4 @@ node_modules
 npm-debug.log
 .DS_Store
 /*.env
+/public/images/job/job scriptures.psd
