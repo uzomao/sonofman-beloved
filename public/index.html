@@ -53,18 +53,17 @@
 		const pagesOfBook = document.getElementsByClassName('bb-item')
 
 		const nextPage = () => {
-			pageCount += 1
 			if(pageCount < pagesOfBook.length){
+				pageCount += 1
 				pagesOfBook[pageCount].style.display = 'block'
 			}
 		}
 
 		const prevPage = () => {
 			if(pageCount > 0){
+				pageCount -= 1
 				pagesOfBook[pageCount].style.display = 'none'
 			}
-			
-			pageCount -= 1
 		}
 	</script>
 </body>
