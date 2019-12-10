@@ -69,6 +69,22 @@ const vrView = new VRView.Player('#vrview', {
     height: '768'
 })
 
+const displayTypeContents = {
+    'chapel': {
+        'nb-rosary': 'https://drive.google.com/file/d/19l0egHcMpA6ptYZr_y1c3__OPp0HQNRc/preview',
+        'nb-mary-left-arm': 'https://drive.google.com/file/d/1sGu8WIAuRTQzGbGEnvQSWbMiOxWndmRp/preview',
+        'nb-mary-right-arm': 'https://drive.google.com/file/d/1051dVkarxC2M8FmYHLfKi5Q8Yxa3JNab/preview',
+        'head-of-jesus': 'https://drive.google.com/file/d/19PuYO34tIQmQ2qhBTRWpnnLGcA4r5oQN/preview',
+        'pew-books': 'https://drive.google.com/file/d/1ZQDKYPf8th8c0_ulAejvw0H-30iVG5-A/preview',
+        'matchbox': 'https://drive.google.com/file/d/1fCK50wKtDEccy7TeN1tgg7xdgxPv2uwp/preview',
+        'infant-of-prague': 'https://drive.google.com/file/d/1Y9TXYWlx6XvzEzCjG6BuOhQGiGePC8D8/preview',
+        'curtain': 'https://drive.google.com/file/d/1yjqn-jXZ-HJQRuxDkgWyowvcF68sQZsc/preview',
+        'pews': 'https://drive.google.com/file/d/1x2p-dwzwZu5mdWxRYzWcCjwyszzdBFMn/preview',
+        'podium': 'https://drive.google.com/file/d/1hPdW1VH5GvxtSWJylrX47lJsS1idQeRH/preview',
+        'melting-candle': 'https://drive.google.com/file/d/1yHap-l3Zt4kMddLWiQBD8GyyrVXRseRk/preview'
+    }
+}
+
 const hotspots = {
     'index': [
         {name: 'family-album', pitch: -10, yaw: 180, media: {type: displayType, divId: 'book-wrapper'}},
@@ -91,8 +107,18 @@ const hotspots = {
         {name: 'tv', pitch: 30, yaw: 150}
     ],
     'chapel': [
-        {name: 'pews', pitch: 0, yaw: 0, media: {type: soundType, fileURI: '../sound/kitt.mp3', playing: false}},
-        {name: 'podium', pitch: 0, yaw: 180, media: {type: soundType, fileURI: '../sound/kitt.mp3', playing: false}}
+        {name: 'pew-books', pitch: -20, yaw: 13, media: {type: displayType, divId: 'pew-books'}},
+        {name: 'rosary', pitch: 35, yaw: 117, media: {type: displayType, divId: 'nb-rosary' }},
+        {name: 'mary-left-arm', pitch: 20, yaw: 165, media: {type: displayType, divId: 'nb-mary-left-arm'}},
+        {name: 'mary-right-arm', pitch: 16.5, yaw: 145, media: {type: displayType, divId: 'nb-mary-right-arm'}},
+        {name: 'head-of-jesus', pitch: 30, yaw: 180, media: {type: displayType, divId: 'head-of-jesus'}},
+        {name: 'matchbox', pitch: -17, yaw: 125, media: {type: displayType, divId: 'matchbox'}},
+        {name: 'infant-of-prague', pitch: 0, yaw: -142.5, media: {type: displayType, divId: 'infant-of-prague'}},
+        {name: 'curtain', pitch: 17, yaw: 90, media: {type: displayType, divId: 'curtain'}},
+        {name: 'pews', pitch: 0, yaw: 0, media: {type: displayType, divId: 'pews'}},
+        {name: 'podium', pitch: -55, yaw: 180, media: {type: displayType, divId: 'podium'}},
+        {name: 'melting-candle', pitch: 0, yaw: -90, media: {type: displayType, divId: 'melting-candle'}},
+
     ]
 }
 
@@ -215,7 +241,15 @@ toggleAudioFile = (fileURI, playing) => {
 }
 
 toggleDivDisplay = (divId) => {
-    let div = document.getElementById(divId)
+    let div;
+    console.log(displayTypeContents[pageName][divId])
+
+    if(pageName === 'chapel'){
+        div = document.getElementById('caritas-video')
+        div.src = displayTypeContents[pageName][divId]
+    } else {
+        div = document.getElementById(divId)
+    }
 
     if(div.style.display === '' || div.style.display === 'none'){
         div.style.display = 'block'
